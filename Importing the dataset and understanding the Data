@@ -1,0 +1,52 @@
+import pandas as pd #Imports the pandas library and assigns the alias "pd" for ease of use
+from sklearn.model_selection import train_test_split #Imports the train_test_split function from scikit-learn, which is used to split the dataset into training and testing sets
+from sklearn.feature_extraction.text import CountVectorizer #Imports CountVectorizer from scikit-learn, a tool to convert a collection of text documents to a matrix of token counts
+from sklearn.naive_bayes import MultinomialNB #Imports the Multinomial Naive Bayes classifier from scikit-learn used for categorical data
+from sklearn.metrics import accuracy_score, classification_report  #Imports evaluation metrics like accuracy_score and classification_report from scikit-learn.
+import io #Imports the io module for handling file I/O.
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, roc_curve, auc, precision_recall_curve
+import numpy as np # linear algebra
+## Imports the NumPy library and assigns the alias "np" for ease of use.
+import matplotlib.pyplot as plt  # Imports the Matplotlib library for data visualization and assigns the alias "plt".
+from sklearn.preprocessing import LabelEncoder  # Imports LabelEncoder from scikit-learn for label encoding.
+from sklearn.model_selection import train_test_split, cross_val_score  # Imports functions for splitting data and cross-validation.
+from sklearn.svm import SVC  # Imports the Support Vector Classifier from scikit-learn.
+from sklearn.naive_bayes import GaussianNB  # Imports the Gaussian Naive Bayes classifier from scikit-learn.
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix  # Imports evaluation metrics from scikit-learn.
+from sklearn.tree import DecisionTreeClassifier  # Imports DecisionTreeClassifier from scikit-learn for decision tree classification.
+import warnings  # Imports the warnings module to handle warning messages.
+import pandas as pd
+import seaborn as sns #Seaborn is a data visualization library built on top of Matplotlib. It provides a high-level interface for creating informative and attractive statistical graphics
+from sklearn.model_selection import train_test_split,cross_val_score
+from sklearn.metrics import accuracy_score,classification_report
+from google.colab import files
+
+train_data = files.upload()
+from google.colab import files
+
+test_data = files.upload()
+train_data = pd.read_csv('Training.csv').dropna(axis = 1)
+test_data =pd.read_csv('Testing.csv').dropna(axis = 1)
+train_data.head()
+test_data.head()
+train_data.isnull().sum().sum()
+(train_data.groupby('prognosis').sum()>0).sum().sort_values(ascending=True).head(204).index.to_list()
+(train_data.groupby('prognosis').sum()>0).sum().sort_values(ascending=False).head(10).plot(kind='bar',title='Top 10 most common symptoms',xlabel="Symtoms",ylabel="Number of diseases")
+(train_data.groupby('prognosis').sum()>0).sum().sort_values(ascending=True).head(204).index.to_list()
+for i, column in enumerate(train_data.columns[:6]):
+    if column != 'prognosis':
+        cross_tab = pd.crosstab(train_data['prognosis'], train_data[column].map({1:'Yes',0:'No'}))
+        cross_tab.plot(kind='bar', stacked=True,figsize=(30,10))
+
+        plt.title(f"Cross-Tabulation between 'prognosis' and '{column}'")
+        plt.xlabel('Prognosis')
+        plt.ylabel('Count')
+train_data.shape
+test_data.shape
+# Assuming you have separate training and test datasets
+X_train = train_data.drop('prognosis', axis=1)
+y_train = train_data['prognosis']
+
+X_test = test_data.drop('prognosis', axis=1)
+y_test = test_data['prognosis']
