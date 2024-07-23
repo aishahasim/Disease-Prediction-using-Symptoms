@@ -1,0 +1,51 @@
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
+# Create a Decision Tree classifier
+decision_tree = DecisionTreeClassifier(random_state=42)
+
+# Fit the model on the training data
+decision_tree.fit(X_train, y_train)
+
+# Predict on the test data
+y_pred = decision_tree.predict(X_test)
+
+# Print the predicted labels
+print(y_pred)
+# Calculate and display accuracy for the test set
+accuracy_test = ((accuracy_score(y_test, y_pred_test))*100)
+print("\nAccuracy on Test Set:", accuracy_test)
+
+y_pred_train = classifier.predict(X_train)
+accuracy_train = ((accuracy_score(y_train, y_pred_train))*100)
+print("\nAccuracy on Training Set:", accuracy_train)
+
+y_pred=classifier.predict(X_test)
+accuracy_total = ((accuracy_score(y_test, y_pred))*100)
+print("\nTotal Accuracy:", accuracy_test)
+import pandas as pd
+from tabulate import tabulate
+
+# Assuming y_pred and y_test are numpy arrays or lists
+data = {'Predicted Values': y_pred, 'Actual Values': y_test}
+df = pd.DataFrame(data)
+
+# Display the DataFrame with bold headings, margins, and outline
+table = tabulate(df, headers='keys', tablefmt='fancy_grid', showindex=False)
+
+print(table)
+
+# Create confusion matrix
+cf_matrix = confusion_matrix(y_test, y_pred)
+
+# Get unique classes from y_test
+classes = np.unique(y_test)
+
+# Create a DataFrame for confusion matrix
+confusion_df = pd.DataFrame(cf_matrix, index=classes, columns=classes)
+
+# Display the DataFrame with bold headings, margins, and outline
+table = tabulate(confusion_df, headers='keys', tablefmt='fancy_grid', showindex=True)
+
+print("\nConfusion Matrix:")
+print(table)
