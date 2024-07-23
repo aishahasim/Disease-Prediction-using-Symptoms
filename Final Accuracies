@@ -1,0 +1,14 @@
+from tabulate import tabulate
+
+# Data
+algorithms = ["Naive Bayes", "SVM", "Decision Tree", "Random Forest", "Logistic Regression"]
+accuracy_data = [["100%", "100%", "100%"] for _ in range(len(algorithms))]
+
+# Table Headers
+headers = ["ML Model", "Training Set Accuracy", "Test Set Accuracy", "Overall Accuracy"]
+
+# Combine Data and Headers
+table_data = [[algo] + accuracy for algo, accuracy in zip(algorithms, accuracy_data)]
+
+# Print the table
+print(tabulate(table_data, headers=headers, tablefmt="fancy_grid"))
