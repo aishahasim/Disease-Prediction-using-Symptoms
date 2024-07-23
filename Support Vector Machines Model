@@ -1,0 +1,59 @@
+from sklearn.svm import SVC #SVC is support vector machine algorithm
+from sklearn.metrics import accuracy_score
+
+svc = SVC(kernel = 'linear',C=0.01) #kernel is 2-d or 3-d, here a linear kernel is used because the hyperplane margin is linear
+svc.fit(X_train, y_train)
+y_pred = svc.predict(X_test)
+y_pred
+# Calculate and display accuracy for the test set
+accuracy_test = ((accuracy_score(y_test, y_pred_test))*100)
+print("\nAccuracy on Test Set:", accuracy_test)
+
+y_pred_train = classifier.predict(X_train)
+accuracy_train = ((accuracy_score(y_train, y_pred_train))*100)
+print("\nAccuracy on Training Set:", accuracy_train)
+
+y_pred=classifier.predict(X_test)
+accuracy_total = ((accuracy_score(y_test, y_pred))*100)
+print("\nTotal Accuracy:", accuracy_test)
+import pandas as pd
+from tabulate import tabulate
+
+# Assuming y_pred and y_test are numpy arrays or lists
+data = {'Predicted Values': y_pred, 'Actual Values': y_test}
+df = pd.DataFrame(data)
+
+# Display the DataFrame with bold headings, margins, and outline
+table = tabulate(df, headers='keys', tablefmt='fancy_grid', showindex=False)
+
+print(table)
+# Training and testing SVM Classifier
+svm_model = SVC()
+svm_model.fit(X_train,y_train)
+y_pred = svm_model.predict(X_test)
+
+print(f"Accuracy on train data by SVM Classifier\
+: {accuracy_score(y_train, svm_model.predict(X_train))*100}")
+
+print(f"Accuracy on test data by SVM Classifier\
+: {accuracy_score(y_test, y_pred)*100}")
+cf_matrix = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(12,8))
+sns.heatmap(cf_matrix, annot=True)
+plt.title("Confusion Matrix for SVM Classifier on Test Data")
+plt.show()
+
+# Create confusion matrix
+cf_matrix = confusion_matrix(y_test, y_pred)
+
+# Get unique classes from y_test
+classes = np.unique(y_test)
+
+# Create a DataFrame for confusion matrix
+confusion_df = pd.DataFrame(cf_matrix, index=classes, columns=classes)
+
+# Display the DataFrame with bold headings, margins, and outline
+table = tabulate(confusion_df, headers='keys', tablefmt='fancy_grid', showindex=True)
+
+print("\nConfusion Matrix:")
+print(table)
