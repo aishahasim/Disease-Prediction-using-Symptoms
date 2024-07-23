@@ -1,0 +1,27 @@
+from sklearn.linear_model import LogisticRegression
+log_reg = LogisticRegression()
+log_reg.fit(X_train, y_train)
+y_pred = log_reg.predict(X_test)
+y_pred
+print(f"Accuracy on train data by Logistic Regression: {accuracy_score(y_train, log_reg.predict(X_train)) * 100}")
+print(f"Accuracy on test data by Logistic Regression: {accuracy_score(y_test, y_pred) * 100}")
+# Sum the diagonal elements (true positives)
+correct_predictions = np.trace(cf_matrix)
+
+# Calculate the overall accuracy
+total_samples = np.sum(cf_matrix)
+overall_accuracy = correct_predictions / total_samples
+
+print(f"\nOverall Accuracy: {overall_accuracy * 100}")
+# Create confusion matrix
+cf_matrix = confusion_matrix(y_test, y_pred)
+
+# Create a DataFrame for confusion matrix
+confusion_df = pd.DataFrame(cf_matrix, index=log_reg.classes_, columns=log_reg.classes_)
+
+plt.figure(figsize=(8, 6))
+sns.heatmap(confusion_df, annot=True, fmt='d', cmap='Blues', cbar=False)
+plt.title('Confusion Matrix - Logistic Regression')
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.show()
